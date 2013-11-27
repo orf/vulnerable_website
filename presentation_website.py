@@ -124,4 +124,4 @@ if __name__ == '__main__':
         print "Creating DB"
         init_db()
     else:
-        app.run()
+        app.run(port=80)
