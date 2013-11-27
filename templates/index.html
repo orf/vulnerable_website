@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="thumbnails">
+        {% for product in products %}
+        <li class="span3">
+            <div class="thumbnail">
+                <img style="height: 270px;" src="{{ url_for('get_image', path="static/img/products/"+product[4]) }}" alt="">
+                <div class="caption">
+                    <h3>{{ product[1] }} - £{{ product[2] }}</h3>
+                    <p>
+                        <a class="btn btn-primary" href="{{ url_for('view_product', id=product[0]) }}">
+                            <i class="icon-shopping-cart icon-white"></i>
+                            Buy Now!</a>
+                    </p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

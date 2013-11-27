@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div class="span3">
+                    <div class="thumbnail">
+                        <img src="{{ url_for('get_image', path="static/img/products/"+product[4]) }}" alt="">
+                    </div>
+                </div>
+                <div class="span4">
+                    {{ product[3] }}
+                </div>
+
+                <div class="span3">
+                    <div class="well well-small">
+                        <p><strong>Price: </strong> £{{ product[2] }}</p>
+                        <p>
+                            <a class="btn btn-primary" href="{{ url_for('view_product', id=product[0]) }}">
+                                        <i class="icon-shopping-cart icon-white"></i>
+                                        Buy Now!</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <h4>Comments:</h4>
+        </div>
+    </div>
+
+    {% for comment in comments %}
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="well well-small">
+                    {{ comment[2]|safe }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h5>Add comment:</h5>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4">
+                <form method="POST" action="{{ url_for('add_comment', id=product[0]) }}">
+                    <fieldset>
+                        <textarea name="comment" class="span12" placeholder="Enter your comment here"></textarea>
+                        <button type="submit" class="btn">Submit</button>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+{% endblock %}

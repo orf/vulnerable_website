@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bargain Electronics</title>
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="{{ url_for('index') }}">Bargain Electronics</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('search') }}">Search</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+          <div class="pull-right">
+              <div class="nav-collapse">
+                <ul class="nav pull-right">
+                  <li class="divider-vertical"></li>
+                  {% if not g.user %}
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                      <form method="POST" action="{{ url_for('login') }}" id="sf">
+                        <input type="text" id="username" class="input-small" name="username" placeholder="Username">
+                        <input type="password" id="password" class="input-small" name="password" placeholder="Password">
+                        <button type="submit" class="btn">Sign in</button>
+                      </form>
+                    </div>
+                  </li>
+                  {% else %}
+                      <li><a href="#">User: {{ g.user[2] }}</a></li>
+                      <li><a href="{{ url_for('logout') }}">Logout</a> </li>
+                  {% endif %}
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if request.args.get("message") %}
+        <div class="row-fluid">
+            <div class="span8 offset2">
+                <div class="alert alert-info">
+                    <strong>Message: </strong>{{ request.args.get("message")|safe }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row-fluid">
+        <div class="span10 offset2">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
